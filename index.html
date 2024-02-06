@@ -1,5 +1,5 @@
 
-
+<!-- 
 <html>
     <form action="http://localhost:8000/users/" accept="application/json"method="POST" >
         <input type="text" name="first_name"/>
@@ -10,4 +10,132 @@
         <input type="text" name="email"/>
         <button type="submmit" > enviar </button>   
     </form>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeFlow Data Input</title>
+</head>
+<body>
+    <h1>LifeFlow Data Input</h1>
+
+    <form id="userDataForm">
+        <h2>User Information</h2>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <label for="middleName">Middle Name:</label>
+        <input type="text" id="middleName" name="middleName">
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="height">Height (in cm):</label>
+        <input type="number" id="height" name="height">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <h2>Daily Metrics</h2>
+        <label for="user_id">User id:</label>
+        <input type="int" id="user_id" name="user_id" required>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="mood">Mood:</label>
+        <input type="text" id="mood" name="mood">
+
+        <label for="energy">Energy:</label>
+        <input type="text" id="energy" name="energy">
+
+        <label for="appetite">Appetite:</label>
+        <input type="text" id="appetite" name="appetite">
+
+        <label for="cravings">Cravings:</label>
+        <input type="text" id="cravings" name="cravings">
+
+        <label for="sleepQuality">Sleep Quality:</label>
+        <input type="text" id="sleepQuality" name="sleepQuality">
+
+        <label for="sleepTime">Sleep Time (in hours):</label>
+        <input type="number" id="sleepTime" name="sleepTime">
+
+        <label for="workoutTime">Workout Time (in minutes):</label>
+        <input type="number" id="workoutTime" name="workoutTime">
+
+        <label for="workoutType">Workout Type:</label>
+        <input type="text" id="workoutType" name="workoutType">
+
+        <button type="button" onclick="submitFormData()">Submit Data</button>
+    </form>
+
+<!-- ... (previous HTML code) ... -->
+
+<script>
+    function submitFormData() {
+        // Fetch the values from the form
+        const formData = new FormData(document.getElementById('userDataForm'));
+
+        // Convert the form data to a JSON object
+        const jsonData = {};
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
+
+        // Make an API call to send the data to your FastAPI backend
+        fetch('http://127.0.0.1:8000/users/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jsonData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server
+            console.log('User data submitted successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error submitting user data:', error);
+        });
+    }
+</script>
+
+<script>
+    function submitDailyMetricsData() {
+        // Fetch the values from the form
+        const formData = new FormData(document.getElementById('userDataForm'));
+
+        // Convert the form data to a JSON object
+        const jsonData = {};
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
+
+        // Make an API call to send the data to your FastAPI backend
+        fetch('http://127.0.0.1:8000/dailymetrics/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jsonData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server
+            console.log('Daily metrics data submitted successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error submitting daily metrics data:', error);
+        });
+    }
+</script>
+</body>
 </html>
